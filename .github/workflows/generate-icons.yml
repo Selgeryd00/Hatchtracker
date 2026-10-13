@@ -1,0 +1,37 @@
+name: Generate iPhone app icons
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/generate-icons.yml"
+      - "icon.svg"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Generate PNG icons from existing artwork
+        run: |
+          python - <<'PY'
+          import base64, io, re, subprocess, sys
+          from pathlib import Path
+          subprocess.check_call([sys.executable,'-m','pip','install','--quiet','Pillow'])
+          from PIL import Image
+          source=Path('icon.svg').read_text(encoding='utf-8')
+          match=re.search(r'data:image/jpeg;base64,([^"\s]+)',source)
+          if not match: raise RuntimeError('Embedded icon artwork not found')
+          img=Image.open(io.BytesIO(base64.b64decode(match.group(1)))).convert('RGB')
+          for size, filename in [(180,'apple-touch-icon.png'),(192,'icon-192.png'),(512,'icon-512.png')]:
+              img.resize((size,size),Image.Resampling.LANCZOS).save(filename,format='PNG',optimize=True)
+          PY
+      - name: Commit generated icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apple-touch-icon.png icon-192.png icon-512.png
+          git diff --cached --quiet || (git commit -m "Generate proper PNG icons for iPhone and PWA" && git push)
