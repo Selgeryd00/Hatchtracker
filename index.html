@@ -14,8 +14,9 @@
 <div class="card"><h2>Felsökningsguide</h2><label for="problem">Vad funderar du över?</label><select id="problem"><option value="humidity">Fukten hoppar mellan 30 och 60 %</option><option value="temp">Temperaturen avviker</option><option value="noVessels">Jag ser inga blodkärl</option><option value="bloodRing">Jag misstänker en blodring</option><option value="late">Ingen kyckling har kläckts dag 21</option><option value="pip">Kycklingen har gjort hål men kommer inte ut</option><option value="help">Ska jag hjälpa kycklingen ur skalet?</option><option value="power">Strömavbrott</option></select><p id="problemAnswer" class="hint"></p></div>
 <div class="card"><h2>Förbered kycklingarnas första dygn</h2><div id="brooderChecks"></div><p class="muted">I en uppvärmd uppfödningslåda används ofta omkring 32–35 °C i den varma zonen första veckan. Det ska alltid finnas en svalare zon, och kycklingarnas beteende avgör om värmen är lämplig. Skydda mot brandrisk och använd säker värmekälla.</p></div>
 <div class="card"><h2>Praktisk tidslinje</h2><p><b>Dag 0:</b> Lägg in äggen, notera antal, startdatum och eventuellt startvikt.</p><p><b>Dag 7:</b> Första ordentliga lysningen.</p><p><b>Dag 14:</b> Följ upp utveckling och luftblåsa.</p><p><b>Dag 18:</b> Avsluta vändningen och förbered kläckning.</p><p><b>Dag 19–21+:</b> Håll kläckaren stabil och stör så lite som möjligt.</p><p><b>Efter kläckning:</b> Värme, säkert vatten, kycklingstartfoder och uppsikt.</p></div>
-</section><section id="settings" class="screen"><div class="card"><h2>Din kläckning</h2><label for="start">Datum då äggen lades in (dag 0)</label><input type="date" id="start"><label for="eggs">Antal ägg</label><input type="number" min="0" max="999" id="eggs"><label for="hatched">Antal kläckta kycklingar</label><input type="number" min="0" max="999" id="hatched"><label for="batchName">Namn på omgången</label><input id="batchName" placeholder="T.ex. Höstkläckning"><button id="saveSettings" class="full">Spara inställningar</button></div><div class="card"><h2>Påminnelser och viktiga dagar</h2><p class="muted">Lägg in dina milstolpar i iPhones Kalender. Kalendern kan sedan påminna dig. HatchTracker skickar inte egna pushnotiser.</p><button id="calendarExport" class="full secondary">Lägg till milstolpar i Kalender</button><p id="calendarInfo" class="muted" aria-live="polite"></p></div><div class="card"><h2>Avsluta kläckningen</h2><p class="muted">Spara resultatet och starta en ny omgång. Journaler och äggkort följer med i historiken.</p><div class="stats"><div class="stat"><small>Kläckta</small><b id="archiveHatched">0</b></div><div class="stat"><small>Kläckningsgrad</small><b id="archiveRate">–</b></div></div><button id="finishBatch" class="full">Spara avslutad omgång</button></div><div class="card"><h2>Tidigare kläckningar</h2><div id="batchHistory"></div></div><div class="card"><h2>Säkerhetskopiering</h2><p class="muted">Dina data sparas endast på denna iPhone och synkas inte automatiskt. Exportera regelbundet en kopia.</p><button id="export" class="full secondary">Exportera JSON</button><label for="import">Återställ från säkerhetskopia</label><input type="file" accept=".json,application/json" id="import"><button id="clear" class="full outline">Rensa alla uppgifter</button></div><div class="card"><h2>Om råden</h2><p>Guiden gäller hönsägg i kläckmaskin. Cirka 37,5 °C är vanligt för fläktstyrda maskiner. Stilluftsmaskiner kan kräva annan temperatur. Följ tillverkarens anvisningar. Fuktbehov varierar; bedöm även luftblåsans utveckling och äggens viktminskning.</p><p>Vid osäkerhet om levande embryo, ta inte bort ägget enbart efter en enda tveksam lysning.</p><p><a href="https://extension.msstate.edu/agriculture/livestock/poultry/hatchery-management-guide-for-game-bird-and-small-poultry-flock-owners" target="_blank" rel="noopener">Källa: Mississippi State University Extension</a></p></div></section>
-<footer>HatchTracker 3.3 · Lokal lagring · Inga sensorer anslutna · Påminnelser visas i appen, inte som pushnotiser.</footer></main><nav class="tabs"><div><button data-tab="overview" class="active">⌂<br>Idag</button><button data-tab="guide">▦<br>Dag för dag</button><button data-tab="journal">▤<br>Mätningar</button><button data-tab="eggs">◉<br>Mina ägg</button><button data-tab="tools">✦<br>Mer</button><button data-tab="settings">⚙<br>Inställn.</button></div></nav>
+</section><section id="stats" class="screen"><div class="card"><span class="eyebrow">Resultat och jämförelser</span><h2>Min kläckningsstatistik</h2><p class="muted">Jämför pågående och avslutade omgångar. Kläckningsgrad räknas som kläckta delat med antal insatta ägg.</p><div class="stats"><div class="stat"><small>Omgångar</small><b id="statBatches">0</b></div><div class="stat"><small>Totalt kläckta</small><b id="statChicks">0</b></div><div class="stat"><small>Sammanlagd kläckningsgrad</small><b id="statRate">–</b></div><div class="stat"><small>Bästa avslutade omgång</small><b id="statBest">–</b></div></div></div><div class="card"><h2>Jämför kläckningar</h2><div id="statCompare"></div></div></section>
+<section id="chicks" class="screen"><div class="card"><span class="eyebrow">Kycklingdagbok</span><h2>Följ kycklingarnas utveckling</h2><p class="muted">Ta ett foto eller välj en bild. Varje bild får datum, namn och anteckning. Bilder sparas separat på denna enhet och ingår ännu inte i JSON-säkerhetskopian.</p><label for="chickName">Kyckling eller grupp</label><input id="chickName" maxlength="80" placeholder="T.ex. Kyckling 1 eller Brahmagruppen"><label for="chickPhoto">Fotografera eller välj bild</label><input id="chickPhoto" type="file" accept="image/*" capture="environment"><label for="chickNote">Anteckning</label><textarea id="chickNote" maxlength="1000" placeholder="T.ex. vecka 2, nya fjädrar och vikt"></textarea><button class="full" id="saveChickPhoto">Spara i dagboken</button><p class="muted" id="photoMessage" aria-live="polite"></p></div><div class="card"><h2>Bilddagbok</h2><div id="chickGallery"></div></div></section><section id="settings" class="screen"><div class="card"><h2>Din kläckning</h2><label for="start">Datum då äggen lades in (dag 0)</label><input type="date" id="start"><label for="eggs">Antal ägg</label><input type="number" min="0" max="999" id="eggs"><label for="hatched">Antal kläckta kycklingar</label><input type="number" min="0" max="999" id="hatched"><label for="batchName">Namn på omgången</label><input id="batchName" placeholder="T.ex. Höstkläckning"><button id="saveSettings" class="full">Spara inställningar</button></div><div class="card"><h2>Påminnelser och viktiga dagar</h2><p class="muted">Lägg in dina milstolpar i iPhones Kalender. Kalendern kan sedan påminna dig. HatchTracker skickar inte egna pushnotiser.</p><button id="calendarExport" class="full secondary">Lägg till milstolpar i Kalender</button><p id="calendarInfo" class="muted" aria-live="polite"></p></div><div class="card"><h2>Avsluta kläckningen</h2><p class="muted">Spara resultatet och starta en ny omgång. Journaler och äggkort följer med i historiken.</p><div class="stats"><div class="stat"><small>Kläckta</small><b id="archiveHatched">0</b></div><div class="stat"><small>Kläckningsgrad</small><b id="archiveRate">–</b></div></div><button id="finishBatch" class="full">Spara avslutad omgång</button></div><div class="card"><h2>Tidigare kläckningar</h2><div id="batchHistory"></div></div><div class="card"><h2>Säkerhetskopiering</h2><p class="muted">Dina data sparas endast på denna iPhone och synkas inte automatiskt. Exportera regelbundet en kopia.</p><button id="export" class="full secondary">Exportera JSON</button><label for="import">Återställ från säkerhetskopia</label><input type="file" accept=".json,application/json" id="import"><button id="clear" class="full outline">Rensa alla uppgifter</button></div><div class="card"><h2>Om råden</h2><p>Guiden gäller hönsägg i kläckmaskin. Cirka 37,5 °C är vanligt för fläktstyrda maskiner. Stilluftsmaskiner kan kräva annan temperatur. Följ tillverkarens anvisningar. Fuktbehov varierar; bedöm även luftblåsans utveckling och äggens viktminskning.</p><p>Vid osäkerhet om levande embryo, ta inte bort ägget enbart efter en enda tveksam lysning.</p><p><a href="https://extension.msstate.edu/agriculture/livestock/poultry/hatchery-management-guide-for-game-bird-and-small-poultry-flock-owners" target="_blank" rel="noopener">Källa: Mississippi State University Extension</a></p></div></section>
+<footer>HatchTracker 4.0 · Lokal lagring · Inga sensorer anslutna · Påminnelser visas i appen, inte som pushnotiser.</footer></main><nav class="tabs"><div><button data-tab="overview" class="active">⌂<br>Idag</button><button data-tab="guide">▦<br>Dag för dag</button><button data-tab="journal">▤<br>Mätningar</button><button data-tab="eggs">◉<br>Mina ägg</button><button data-tab="tools">✦<br>Mer</button><button data-tab="stats">▥<br>Statistik</button><button data-tab="chicks">▧<br>Kycklingar</button><button data-tab="settings">⚙<br>Inställn.</button></div></nav>
 <script>
 const $=id=>document.getElementById(id),KEY='hatchtracker-v1';
 const stages=[
@@ -211,6 +212,86 @@ $('calendarExport').onclick=()=>{
  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='HatchTracker-'+state.start+'.ics';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
  $('calendarInfo').textContent='Kalenderfil skapad. Öppna filen i en kalenderapp och importera händelserna för att aktivera påminnelser.';
 };
+
+
+function renderStatistics(){
+ const archives=Array.isArray(state.archives)?state.archives:[];
+ const current=state.start?{name:state.batchName||'Pågående',start:state.start,eggs:Number(state.eggs)||0,hatched:Array.isArray(state.eggCards)&&state.eggCards.length?state.eggCards.filter(e=>e.status==='Kläckt').length:Number(state.hatched)||0,active:true}:null;
+ const batches=[...archives,...(current?[current]:[])];
+ const eggs=batches.reduce((n,b)=>n+(Number(b.eggs)||0),0),hatched=batches.reduce((n,b)=>n+(Number(b.hatched)||0),0);
+ $('statBatches').textContent=batches.length;$('statChicks').textContent=hatched;
+ $('statRate').textContent=eggs?Math.round(100*hatched/eggs)+' %':'–';
+ const ranked=archives.filter(b=>Number(b.eggs)>0).sort((a,b)=>Number(b.hatched)/Number(b.eggs)-Number(a.hatched)/Number(a.eggs));
+ $('statBest').textContent=ranked.length?Math.round(100*Number(ranked[0].hatched)/Number(ranked[0].eggs))+' %':'–';
+ const root=$('statCompare');root.replaceChildren();
+ if(!batches.length){root.textContent='Ingen kläckning registrerad ännu.';return}
+ for(const b of batches){
+  const total=Number(b.eggs)||0,done=Number(b.hatched)||0,pct=total?Math.min(100,Math.max(0,100*done/total)):0;
+  const el=document.createElement('div');el.className='entry';
+  const name=document.createElement('strong');name.textContent=(b.name||'Kläckning')+(b.active?' · Pågår':'');
+  const info=document.createElement('p');info.className='muted';info.textContent=(b.start||'Okänt datum')+' · '+done+'/'+total+' kläckta · '+(total?Math.round(pct)+' %':'Ej beräknad');
+  const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('i');fill.style.width=pct+'%';bar.append(fill);el.append(name,info,bar);root.append(el)
+ }
+}
+const chickDB=()=>new Promise((resolve,reject)=>{
+ const request=indexedDB.open('hatchtracker-photos',1);
+ request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains('photos'))db.createObjectStore('photos',{keyPath:'id'})};
+ request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)
+});
+async function photoStore(mode,work){
+ const db=await chickDB();
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction('photos',mode),store=tx.objectStore('photos');
+  let result;try{result=work(store)}catch(err){db.close();reject(err);return}
+  tx.oncomplete=()=>{db.close();resolve(result)};
+  tx.onerror=()=>{db.close();reject(tx.error)}
+ })
+}
+function shrinkPhoto(file){
+ return new Promise((resolve,reject)=>{
+  const img=new Image(),url=URL.createObjectURL(file);
+  img.onload=()=>{
+   const scale=Math.min(1,1280/Math.max(img.width,img.height));
+   const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+   URL.revokeObjectURL(url);canvas.toBlob(blob=>blob?resolve(blob):reject(Error('Bilden kunde inte bearbetas')),'image/jpeg',0.78)
+  };
+  img.onerror=()=>{URL.revokeObjectURL(url);reject(Error('Bilden kunde inte öppnas'))};
+  img.src=url
+ })
+}
+async function renderChickPhotos(){
+ const root=$('chickGallery');root.replaceChildren();
+ try{
+  const db=await chickDB();
+  const photos=await new Promise((resolve,reject)=>{const tx=db.transaction('photos','readonly'),request=tx.objectStore('photos').getAll();request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);tx.oncomplete=()=>db.close()});
+  photos.sort((a,b)=>b.created.localeCompare(a.created));
+  if(!photos.length){root.textContent='Inga bilder ännu. Börja med första fotot!';return}
+  for(const p of photos){
+   const card=document.createElement('div');card.className='card';const photo=document.createElement('img');const url=URL.createObjectURL(p.blob);photo.src=url;photo.alt='Foto av '+p.name;photo.style.cssText='width:100%;max-height:340px;object-fit:contain;border-radius:12px;background:#111';photo.onload=()=>URL.revokeObjectURL(url);
+   const name=document.createElement('h3');name.textContent=p.name;
+   const date=document.createElement('small');date.textContent=new Date(p.created).toLocaleDateString('sv-SE');
+   const note=document.createElement('p');note.textContent=p.note||'Ingen anteckning';
+   const del=document.createElement('button');del.className='outline';del.textContent='Radera bilden';del.onclick=async()=>{if(!confirm('Radera detta foto permanent?'))return;try{await photoStore('readwrite',store=>store.delete(p.id));renderChickPhotos()}catch{alert('Kunde inte radera bilden')}};
+   card.append(photo,name,date,note,del);root.append(card)
+  }
+ }catch{$('photoMessage').textContent='Bildlagring är inte tillgänglig i denna webbläsare.'}
+}
+$('saveChickPhoto').onclick=async()=>{
+ const file=$('chickPhoto').files[0];if(!file)return alert('Välj eller ta en bild först.');
+ if(!file.type.startsWith('image/'))return alert('Välj en bildfil.');
+ if(file.size>25*1024*1024)return alert('Bilden är för stor. Välj en bild under 25 MB.');
+ const button=$('saveChickPhoto');button.disabled=true;$('photoMessage').textContent='Sparar bilden…';
+ try{
+  const blob=await shrinkPhoto(file);
+  const entry={id:crypto.randomUUID(),name:$('chickName').value.trim()||'Mina kycklingar',note:$('chickNote').value.trim(),created:new Date().toISOString(),blob};
+  await photoStore('readwrite',store=>store.put(entry));
+  $('chickPhoto').value='';$('chickNote').value='';$('photoMessage').textContent='Bilden sparad på denna enhet. Bilder ingår inte i JSON-exporten.';await renderChickPhotos()
+ }catch(err){$('photoMessage').textContent='Kunde inte spara: '+(err.message||'Kontrollera ledigt lagringsutrymme.')}
+ finally{button.disabled=false}
+};
+const renderBeforeStatistics=render;render=function(){renderBeforeStatistics();renderStatistics()};
+const tabBeforeChicks=tab;tab=function(name){tabBeforeChicks(name);if(name==='chicks')renderChickPhotos();if(name==='stats')renderStatistics()};
 
 render();renderTools();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script></body></html>
