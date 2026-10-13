@@ -2,9 +2,6 @@ name: Generate iPhone app icons
 on:
   push:
     branches: [main]
-    paths:
-      - ".github/workflows/generate-icons.yml"
-      - "icon.svg"
   workflow_dispatch:
 permissions:
   contents: write
