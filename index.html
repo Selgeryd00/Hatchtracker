@@ -73,7 +73,7 @@ function validateBackup(raw){
  if(data.eggCards!==undefined&&!Array.isArray(data.eggCards))throw Error('Ogiltiga äggkort');
  if(data.archives!==undefined&&!Array.isArray(data.archives))throw Error('Ogiltig historik');
  if(data.candles!==undefined&&!Array.isArray(data.candles))throw Error('Ogiltiga lysningar');
- if(data.start!==undefined&&data.start!==''&&!/^\\d{4}-\\d{2}-\\d{2}$/.test(data.start))throw Error('Ogiltigt startdatum');
+ if(data.start!==undefined&&data.start!==''&&!/^\d{4}-\d{2}-\d{2}$/.test(data.start))throw Error('Ogiltigt startdatum');
  const cleaned={...data,logs:data.logs,checks:data.checks&&typeof data.checks==='object'&&!Array.isArray(data.checks)?data.checks:{},eggCards:data.eggCards||[],archives:data.archives||[],candles:data.candles||[],brooder:data.brooder||{}};
  return cleaned;
 }
